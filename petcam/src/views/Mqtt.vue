@@ -1,6 +1,7 @@
 <template>
     <div>
         <page-title icon="mdi-access-point-network">MQTT 모니터링</page-title>
+        
     </div>
 </template>
 
@@ -12,15 +13,8 @@ export default {
         return {
             
         };
-    },
-
-    mounted() {
-        
-    },
-
-    methods: {
-        
-    },
+    }, 
+    
 };
 </script>
 
