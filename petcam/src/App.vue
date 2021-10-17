@@ -3,8 +3,18 @@
     <!-- 툴바 꾸미기 -->
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Pet Camera <v-icon>mdi-tennis-ball</v-icon> </v-toolbar-title>
+      <v-toolbar-title>PetCam </v-toolbar-title>
       <v-spacer></v-spacer>
+      <!-- 우측 아이콘 -->
+      <v-btn icon @click="$router.push({name:'Home'})">
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
+      <v-btn icon v-if='isLogin' @click="logout">
+        <v-icon>mdi-logout</v-icon>
+      </v-btn>
+      <v-btn icon v-else: to="{name:'Login'}">
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
@@ -50,7 +60,7 @@ export default {
     pages: [
       {title: 'Home', name:'Home', icon:'mdi-home'},
       {title: 'Mqtt 모니터링', name:'Mqtt', icon:'mdi-access-point-network'},
-      {title: '보안카메라', name:'SecureCamera', icon:'mdi-video'}
+      {title: '보안카메라', name:'SecureCamera', icon:'mdi-video'},
     ]
     
   }),

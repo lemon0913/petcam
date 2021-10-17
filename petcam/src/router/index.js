@@ -13,6 +13,7 @@ const routes = [
     component: () => import('../views/Mqtt.vue')},
   {path:'/securecamera', name:'SecureCamera',
     component: () => import('../views/SecureCamera.vue')},
+  
 ]
 
 const router = new VueRouter({
