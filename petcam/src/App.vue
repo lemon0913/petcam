@@ -12,7 +12,7 @@
       <v-btn icon v-if='isLogin' @click="logout">
         <v-icon>mdi-logout</v-icon>
       </v-btn>
-      <v-btn icon v-else: to="{name:'Login'}">
+      <v-btn icon v-else :to="{name:'Login'}">
         <v-icon>mdi-login</v-icon>
       </v-btn>
       <v-btn icon>
@@ -20,8 +20,24 @@
       </v-btn>
     </v-app-bar>
 
-    <!-- 내비게이션 -->
+    <!-- 내비게이션 -->   
     <v-navigation-drawer absolute v-model="drawer" temporary>
+      <v-list-item two-line>
+        <v-list-item-avatar v-if="isLogin">
+          <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title class="text-h6">
+            {{isLogin? user.username : 'IoT 서비스'}}
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            {{isLogin? user.email : '로그인을 해주세요'}}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider></v-divider>
+      
       <v-list dense nav>
         <v-list-item v-for="page in pages" :key="page.name" :to="{name:page.name}" exact>
           <v-list-item-icon>
@@ -51,7 +67,7 @@
 </template>
 
 <script>
-
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 export default {
   name: 'App',
 
@@ -61,8 +77,27 @@ export default {
       {title: 'Home', name:'Home', icon:'mdi-home'},
       {title: 'Mqtt 모니터링', name:'Mqtt', icon:'mdi-access-point-network'},
       {title: '보안카메라', name:'SecureCamera', icon:'mdi-video'},
-    ]
-    
+    ]    
   }),
+  computed: {
+    ...mapState(['user']),
+    ...mapGetters(['isLogin'])
+  },
+  methods: {
+    ...mapMutations(['logout', 'restore']),
+    ...mapActions(['verify'])
+  },
+  async mounted() {
+    let user = localStorage.getItem('user')
+    if(user) {
+      user = JSON.parse(user) // JSON 문자열을 객체로 변환
+      try {
+        await this.verify(user.jwt)
+        this.restore(user) // store 복원
+      } catch(e) { // 유효하지 않은 경우 401 예외 발생
+        console.log(e)
+      }
+    }
+  },
 };
 </script>

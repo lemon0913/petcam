@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9@892asun9c9py6r5+5g_9xmzrzs%g$o5^cp3d4ys_42)7*1an
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.69']
 
 
 # Application definition
@@ -37,7 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'api',
 ]
+
+REST_FRAMEWORK = {
+ 'DEFAULT_PERMISSION_CLASSES': (
+ 'rest_framework.permissions.IsAuthenticated',
+ ),
+ 'DEFAULT_AUTHENTICATION_CLASSES': (
+ 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+ 'rest_framework.authentication.SessionAuthentication',
+ 'rest_framework.authentication.BasicAuthentication',
+ ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,3 +140,12 @@ STATICFILES_DIRS= [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import datetime
+JWT_AUTH = {
+ 'JWT_SECRET_KEY': SECRET_KEY,
+ 'JWT_ALGORITHM': 'HS256',
+ 'JWT_ALLOW_REFRESH': True,
+ 'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+ 'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
+}
