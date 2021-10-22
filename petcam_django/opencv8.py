@@ -7,33 +7,37 @@ from PIL import ImageFont, ImageDraw, Image
 import numpy as np
 import os
 import datetime
-
+import requests as req
+import time
 # opencv python 코딩 기본 틀
 # 카메라 영상을 받아올 객체 선언 및 설정(영상 소스, 해상도 설정)
 capture = cv2.VideoCapture(1) #카메라 선택
 capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
-
 is_record = False                           # 녹화상태는 처음엔 거짓으로 설정
 on_record = False
-cnt_record = 0      # 영상 녹화 시간 관련 변수
-max_cnt_record =500  # 최소 촬영시간
+cnt_record = 10      # 영상 녹화 시간 관련 변수
+max_cnt_record =200  # 최소 촬영시간
 
-fourcc = cv2.VideoWriter_fourcc(*'XVID')    # 영상을 기록할 코덱 설정
+fourcc = cv2.VideoWriter_fourcc(*'H264')    # 영상을 기록할 코덱 설정
 font = ImageFont.truetype('fonts/SCDream6.otf', 20) # 글꼴파일을 불러옴
 
 # haar cascade 검출기 객체 선언
 #face_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_frontalface_default.xml') #사람얼굴
 face_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_frontalcatface.xml') #고양이얼굴
-# eye_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_eye_tree_eyeglasses.xml')
+
+video_url= 'http://localhost:8000/api/video/'
+username ='hong'
+file_name =''    #비디오명
+file_path = '' #비디오경로
+#nowDatetime_path =''
 # 무한루프
 while True:
     # 현재시각을 불러와 문자열로저장
     now = datetime.datetime.now()
     nowDatetime = now.strftime('%Y-%m-%d %H:%M:%S')
     nowDatetime_path = now.strftime('%Y-%m-%d %H_%M_%S') # 파일이름으로는 :를 못쓰기 때문에 따로 만들어줌
-
     ret, frame = capture.read()     # 카메라로부터 현재 영상을 받아 frame에 저장, 잘 받았다면 ret가 참
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # 영상을 흑백으로 바꿔줌
     
@@ -55,7 +59,11 @@ while True:
     if len(faces) :
         is_record = True    # 녹화 준비
         if on_record == False:
-            video = cv2.VideoWriter("media/video/PETCAM " + nowDatetime_path + ".avi", fourcc, 15, (frame.shape[1], frame.shape[0]))
+            video = cv2.VideoWriter("media/video/PETCAM " + nowDatetime_path + ".mp4", fourcc, 15, (frame.shape[1], frame.shape[0]))
+            video_path="media/video/PETCAM " + nowDatetime_path + ".mp4"
+            file_name = "PETCAM "+nowDatetime_path+".mp4"
+            file_path = os.path.join('./media/video', file_name) 
+
         cnt_record = max_cnt_record
         
     if is_record == True:   # 녹화중이면
@@ -63,12 +71,33 @@ while True:
         video.write(frame)    # 현재 프레임 저장
         cnt_record -= 1     # 녹화시간 1 감소
         on_record = True    # 녹화중 여부를 참으로
-        cv2.circle(img=frame, center=(620, 15), radius=5, color=(0,0,255), thickness=-1) 
+        cv2.circle(img=frame, center=(620, 15), radius=5, color=(0,0,255), thickness=-1)
+
+
         # cv2.circle => 녹화중이라는 것을 보여주기 위해 보여주는 화면에는 빨간색 점을 표시해줌
     if cnt_record == 0:     # 녹화시간이 다 되면
+        print('______________________________')
+        print('녹화 완료')
         is_record = False   # 녹화관련 변수들을 거짓으로
         on_record = False
-    
+        video.release()
+        #capture.release()
+        # video_path="media/video/PETCAM " + nowDatetime_path + ".mp4"
+        # file_name = "PETCAM "+nowDatetime_path+".mp4"
+        # file_path = os.path.join('./media/video', file_name) 
+        data = {
+                'username': username,
+                'size': os.path.getsize(file_path),
+                'filename': file_name,
+                'content_type': 'video/mp4'
+        }
+        #time.sleep(5)
+        res= req.post(video_url, data=data, files={'video_file': open(file_path, 'br')})
+        cnt_record = 10
+        if res.status_code == 200:
+            print(res.json())
+        else:
+            print(res.text)
     
     # 얼굴 영역을 영상에 사각형으로 표시
     if len(faces) :
