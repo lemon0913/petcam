@@ -13,6 +13,9 @@ const routes = [
     component: () => import('../views/Mqtt.vue')},
   {path:'/securecamera', name:'SecureCamera',
     component: () => import('../views/SecureCamera.vue')},
+  { path: '/login', name: 'Login', 
+    component: () => import('../views/Login.vue') },
+  
   
 ]
 

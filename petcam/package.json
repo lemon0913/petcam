@@ -11,6 +11,7 @@
     "@websanova/vue-knob": "^0.4.2",
     "axios": "^0.22.0",
     "core-js": "^3.6.5",
+    "jwt-decode": "^3.1.2",
     "vue": "^2.6.11",
     "vue-moment": "^4.1.0",
     "vue-mqtt": "^2.0.3",
@@ -33,5 +34,6 @@
     "vue-cli-plugin-vuetify": "~2.4.2",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
