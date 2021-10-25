@@ -41,8 +41,8 @@ export default {
     },
     watch: {   	// 값의 변경을 감지하여 후속 처리
         angle() {	// data의 속성명과 동일한 함수로 정의
-            this.$mqtt.publish('iot/hong/control/camera', String(this.angle.value))
-            console.log('publish', 'iot/hong/control/camera', this.angle.value)
+            this.$mqtt.publish('control/camera', String(this.angle.value))
+            console.log('publish', 'control/camera', this.angle.value)
         }
     },    
 
