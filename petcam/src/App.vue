@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <!-- 툴바 꾸미기 -->
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="orange lighten-2" dark>
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>PetCam </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -29,7 +29,7 @@
 
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            {{isLogin? user.username : 'IoT 서비스'}}
+            {{isLogin? user.username : 'PetCam'}}
           </v-list-item-title>
           <v-list-item-subtitle>
             {{isLogin? user.email : '로그인을 해주세요'}}

@@ -12,11 +12,11 @@
               @click="$router.push(page.name)"        
             >
               <v-card-title>
-                <v-icon size="4em" color="indigo darken-2">{{page.icon}}</v-icon>
+                <v-icon size="4em" color="orange darken-2">{{page.icon}}</v-icon>
               </v-card-title>
 
               <v-card-text>
-                <div class="font-weight-bold">
+                <div class="font-weight-black">
                     {{page.title}}
                 </div>
               </v-card-text>
