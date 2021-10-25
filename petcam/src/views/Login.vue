@@ -19,14 +19,18 @@
                     </v-col>
 
                     <v-col cols="8" class="mx-auto">
-                        <v-btn type="submit" color="primary" block :disabled="!isValid">
-                            <v-icon class="mr-3">mdi-login</v-icon> 로그인
+                        <v-btn type="submit" color="orange darken-2" block :disabled="!isValid">
+                            <body-1 class="white--text">
+                                <v-icon class="mr-3">mdi-login</v-icon> 로그인
+                            </body-1>
                         </v-btn>
                     </v-col>
                     
                     <v-col cols="8" class="mx-auto">
-                        <v-btn color="primary" block>
-                            <v-icon class="mr-3">mdi-account-plus</v-icon> 회원가입
+                        <v-btn color="orange darken-2" block>
+                            <body-1 class="white--text">
+                                <v-icon class="mr-3">mdi-account-plus</v-icon> 회원가입
+                            </body-1>
                         </v-btn>
                     </v-col>
                 </v-row>
