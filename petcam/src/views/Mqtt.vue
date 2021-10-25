@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-title icon="mdi-access-point-network">MQTT 모니터링</page-title>
+        <page-title icon="mdi-access-point-network">급식기</page-title>
         
     </div>
 </template>

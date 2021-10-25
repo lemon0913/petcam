@@ -75,7 +75,7 @@ export default {
     drawer:false,
     pages: [
       {title: 'Home', name:'Home', icon:'mdi-home'},
-      {title: 'Mqtt 모니터링', name:'Mqtt', icon:'mdi-access-point-network'},
+      {title: '급식기', name:'Mqtt', icon:'mdi-access-point-network'},
       {title: '보안카메라', name:'SecureCamera', icon:'mdi-video'},
     ]    
   }),
