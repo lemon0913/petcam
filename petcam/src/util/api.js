@@ -8,8 +8,9 @@ function setInterceptors(instance) {
         function(config) {
             // 요청 시 마다 자동으로 헤더 세팅
             // Authorization: jwt <실제 JWT 값>
+            console.log('intercepter', store.state.user)
             if(store.state.user) {
-                config.headers.Authorization = `jwt ${store.state.jwt}`;
+                config.headers.Authorization = `jwt ${store.state.user.jwt}`;
             }
             return config;
         },

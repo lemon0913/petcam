@@ -26,8 +26,8 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name="home"),
     path('api/', include('api.urls')),
     path('api/login', obtain_jwt_token),
-    path('api/login/verify/', verify_jwt_token),
-    path('api/login/refresh/', refresh_jwt_token),
+    path('api/login/verify', verify_jwt_token),
+    path('api/login/refresh', refresh_jwt_token),
 ]
 
 

@@ -9,7 +9,8 @@ class Article(models.Model):
 
     update_date = models.DateTimeField('수정일', auto_now=True, 
     null=True, blank=True)
-
+    class Meta:
+        ordering = ('-reg_date',)
     def __str__(self): 
         return self.title
 class SnapshotFile(models.Model):
@@ -27,7 +28,8 @@ class SnapshotFile(models.Model):
   
     reg_date = models.DateTimeField('등록일', auto_now_add=True, 
     null=True, blank=True)
-  
+    class Meta:
+        ordering = ('-reg_date',)  
     def __str__(self):
          return self.filename
 
@@ -47,6 +49,7 @@ class VideoFile(models.Model):
    
     reg_date = models.DateTimeField('등록일', auto_now_add=True, 
     null=True, blank=True)
-    
+    class Meta:
+        ordering = ('-reg_date',)    
     def __str__(self):
           return self.filename

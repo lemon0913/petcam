@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-  import axios from 'axios'
+  import axios from '@/util/api'
 
   export default {
     name: 'VideoList',
@@ -31,6 +31,7 @@
 
         try {
           let {data} = await axios.get('/api/video')
+          console.log(data)
           this.fileList = data.results
         } catch (e) {
           console.log('에러 : ', e)
