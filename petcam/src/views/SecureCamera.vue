@@ -14,7 +14,7 @@
       </v-tab>
     </v-tabs>
    
-    <remote-camera  v-if="tab==0" url="http://192.168.0.9:8000/mjpeg/stream/" max-width="640"></remote-camera>
+    <remote-camera  v-if="tab==0" url="http://192.168.219.111:8000/mjpeg/stream/" max-width="640"></remote-camera>
     <!-- <snapshot-list v-if="tab==1"></snapshot-list> -->
     <video-list v-if="tab==1"></video-list>
 
@@ -26,7 +26,7 @@ export default {
   name: 'SecureCamera',
   data() {
     return {
-      tab: 0,
+      tab: 0, 
 
     };
   },

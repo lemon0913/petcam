@@ -38,7 +38,7 @@
     data: () => ({
         pages: [
           
-          {title: '급식기', name:'Mqtt', icon:'mdi-access-point-network'},
+          {title: '급식기', name:'Mqtt', icon:'mdi-food-drumstick'},
           {title: '보안카메라', name:'SecureCamera', icon:'mdi-video'},
         ]
         
